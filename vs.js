@@ -30,10 +30,12 @@
     Recognition.mic.style.animationName = 'none';
     this.stop();
   };
+
   const onerror = function(event) {
     console.log('Speech recognition error detected: ' + event.error + " message " + event.message);
     this.stop();
   };
+  
   const onnomatch = function() {
     console.log('Could not recognise the speech, try again...')
     this.stop();
@@ -121,12 +123,14 @@
 
   function Recognition(options) {
     this.agent = new root.webkitSpeechRecognition();
-  //  var config = Object.assign({}, defaults, options);
+
     Object.assign(this.agent, defaults, options);
+
     this.agent.onresult = onresult.bind(this.agent);
     this.agent.onspeechend = onspeechend.bind(this.agent);
     this.agent.onerror = onerror.bind(this.agent);
     this.agent.onnomatch = onnomatch.bind(this.agent);
+
     decorate.call(this, this.start.bind(this));
   };
 
@@ -134,10 +138,12 @@
     Recognition.mic.style.animationName = 'listening';
     this.agent.start();
   };
+
   Recognition.prototype.stop = function() {
     Recognition.mic.style.animationName = 'none';
     this.agent.stop();
   };
+
   Recognition.prototype.abort = function() {
     Recognition.mic.style.animationName = 'none';
     this.agent.abort();
