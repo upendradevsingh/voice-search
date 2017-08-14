@@ -1,0 +1,27 @@
+{
+  "name": "voice-search",
+  "version": "1.0.0",
+  "description": "Voice Search For Web",
+  "main": "vs.js",
+  "scripts": {
+    "start": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/upendradevsingh/voice-search.git"
+  },
+  "author": "Upendra Dev Singh <upendradevsingh@outlook.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/upendradevsingh/voice-search/issues"
+  },
+  "homepage": "https://github.com/upendradevsingh/voice-search#readme",
+  "devDependencies": {
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-es2017": "^6.24.1",
+    "babili-webpack-plugin": "^0.1.2",
+    "webpack": "^3.5.4"
+  }
+}
