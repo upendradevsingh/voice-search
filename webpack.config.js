@@ -5,7 +5,7 @@ const BabiliPlugin = require("babili-webpack-plugin");
 module.exports = {
 	entry: "./vs.js",
 	output: {
-		path: path.resolve(__dirname, 'dist'),
+		path: path.resolve(__dirname, 'd'),
 		filename: 'vs.js'
 		// library: 'Recoginition'
 	},
