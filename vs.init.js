@@ -1,1 +1,1 @@
-(function(w,d,s,cb){var f=d.getElementsByTagName(s)[0], j=d.createElement(s);j.async=true;j.src= '//cdn.jsdelivr.net/gh/upendradevsingh/voice-search@v1/dist/vs.js';j.onload=function(){if(typeof cb === 'function')cb();},f.parentNode.insertBefore(j,f); })(window,document,'script',cb);
+(function(w,d,s,cb){var f=d.getElementsByTagName(s)[0], j=d.createElement(s);j.async=true;j.src= '//cdn.jsdelivr.net/gh/upendradevsingh/voice-search@v1/d/vs.js';j.onload=function(){if(typeof cb === 'function')cb();},f.parentNode.insertBefore(j,f); })(window,document,'script',cb);
