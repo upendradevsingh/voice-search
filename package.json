@@ -1,5 +1,5 @@
 {
-  "name": "voice-search",
+  "name": "web-voice-search",
   "version": "1.0.0",
   "description": "Voice Search For Web",
   "main": "vs.js",
@@ -23,5 +23,28 @@
     "babel-preset-es2017": "^6.24.1",
     "babili-webpack-plugin": "^0.1.2",
     "webpack": "^3.5.4"
-  }
+  },
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.0",
+    "gulp-uglify": "^3.0.0"
+  },
+  "keywords": [
+    "voice",
+    "search",
+    "speech",
+    "API",
+    "web",
+    "mobile",
+    "web",
+    "native",
+    "browser",
+    "speech",
+    "api",
+    "ecommerce",
+    "commerce",
+    "free",
+    "voice",
+    "search"
+  ]
 }

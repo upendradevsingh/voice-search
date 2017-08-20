@@ -15,10 +15,11 @@
 (function(root) {
   "use strict";
 
-  if (!root.webkitSpeechRecognition) {
+  var WebSpeechRecognition = root.SpeechRecognition || root.webkitSpeechRecognition;
+
+  if(!WebSpeechRecognition){
     return false;
   }
-
   /* Styles */
   const containerStyle = 'position:fixed;height:45px;width:45px;right:10px;bottom:10px;border-radius:50%;background:#f68c24;box-sizing:border-box;text-align:center;color:#fff;border:0 solid #fff;animation-duration:1s;animation-iteration-count:infinite';
   const iconStyle = 'height:25px;position:fixed;display:block;bottom:20px;right:25px;font-size:40px;';
@@ -123,7 +124,7 @@
   };
 
   function Recognition(options) {
-    this.agent = new root.webkitSpeechRecognition();
+    this.agent = new WebSpeechRecognition();
 
     Object.assign(this.agent, defaults, options);
 
