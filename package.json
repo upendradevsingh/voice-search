@@ -1,6 +1,6 @@
 {
   "name": "web-voice-search",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "description": "Voice Search For Web",
   "main": "vs.js",
   "scripts": {
