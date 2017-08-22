@@ -37,7 +37,7 @@
     // }
     // .vs{position: absolute;right: 15px;top: 15px;box-sizing: border-box;text-align: center;color: #fff;}
     // .vs .icon{display: inline-block;width: 50px;height: 50px;color: #fff;}
-    // .vs dialog .icon{animation-duration:1s;animation-iteration-count:infinite;animation-name: listening;box-shadow: 0px 0px 50px #afabab;width: 66px;background-color: #f78f26;border-radius: 50%;color: #fff;height:66px;padding-top:16px;}
+    // .vs dialog .icon{animation-duration:1s;animation-iteration-count:infinite;animation-name: listening;box-shadow: 0px 0px 50px #afabab;width: 66px;background-color: #f78f26;border-radius: 50%;color: #fff;height:66px;padding-top:20px;}
     // .vs.jb .icon path{fill:#f79026}
     // .vs .icon path{fill:#b2b2b2}
     // .vs dialog .icon path, .vs.jb dialog .icon path{fill:#fff}
@@ -52,7 +52,7 @@
 // `;
 
     
-    const styles = `@keyframes listening{0%{box-shadow:0 0 50px #afabab}10%{box-shadow:0 0 45px #afabab}20%{box-shadow:0 0 43px #afabab}30%{box-shadow:0 0 40px #afabab}40%{box-shadow:0 0 30px #afabab}50%{box-shadow:0 0 27px #afabab}60%{box-shadow:0 0 25px #afabab}70%{box-shadow:0 0 20px #afabab}80%{box-shadow:0 0 15px #afabab}90%{box-shadow:0 0 10px #afabab}100%{box-shadow:0 0 0 #afabab}}.vs{position:absolute;right:15px;top:15px;box-sizing:border-box;text-align:center;color:#fff}.vs .icon{display:inline-block;width:50px;height:50px;color:#fff}.vs dialog .icon{animation-duration:1s;animation-iteration-count:infinite;animation-name:listening;box-shadow:0 0 50px #afabab;width:66px;background-color:#f78f26;border-radius:50%;color:#fff;height:66px;padding-top:16px}.vs.jb .icon path{fill:#f79026}.vs .icon path{fill:#b2b2b2}.vs dialog .icon path,.vs.jb dialog .icon path{fill:#fff}.vs dialog{width:93vw;padding:40px 0;top:70px;border:transparent;background-color:#f2f2f2}.vs .vs-head{font-size:1em;text-transform:capitalize}.vs dialog::backdrop{background-color:rgba(0,0,0,.83)}.show-close-btn .vs{display:none}@media (max-width:767px){.main-header .top-search-input .search-containter,.main-header.show-close-btn .close-search{display:none}}`;
+    const styles = `@keyframes listening{0%{box-shadow:0 0 50px #afabab}10%{box-shadow:0 0 45px #afabab}20%{box-shadow:0 0 43px #afabab}30%{box-shadow:0 0 40px #afabab}40%{box-shadow:0 0 30px #afabab}50%{box-shadow:0 0 27px #afabab}60%{box-shadow:0 0 25px #afabab}70%{box-shadow:0 0 20px #afabab}80%{box-shadow:0 0 15px #afabab}90%{box-shadow:0 0 10px #afabab}100%{box-shadow:0 0 0 #afabab}}.vs{position:absolute;right:15px;top:15px;box-sizing:border-box;text-align:center;color:#fff}.vs .icon{display:inline-block;width:50px;height:50px;color:#fff}.vs dialog .icon{animation-duration:1s;animation-iteration-count:infinite;animation-name:listening;box-shadow:0 0 50px #afabab;width:66px;background-color:#f78f26;border-radius:50%;color:#fff;height:66px;padding-top:20px}.vs.jb .icon path{fill:#f79026}.vs .icon path{fill:#b2b2b2}.vs dialog .icon path,.vs.jb dialog .icon path{fill:#fff}.vs dialog{width:93vw;padding:40px 0;top:70px;border:transparent;background-color:#f2f2f2}.vs .vs-head{font-size:1em;text-transform:capitalize}.vs dialog::backdrop{background-color:rgba(0,0,0,.83)}.show-close-btn .vs{display:none}@media (max-width:767px){.main-header .top-search-input .search-containter,.main-header.show-close-btn .close-search{display:none}}`;
     const onspeechend = function () {
         Recognition.dialog.querySelector('.icon').style.animationName = 'none';
         this.stop();

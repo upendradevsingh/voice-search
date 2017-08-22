@@ -6,7 +6,8 @@ module.exports = {
 	entry: {
 		"vs": "./vs.js",
 		"vs.tg": "./vs.target.js",
-		"vs.only": "./vs.only.js"
+		"vs.only": "./vs.only.js",
+		"vs.b": "./vs.bottom.js"
 	},
 	output: {
 		path: path.resolve(__dirname, 'd'),

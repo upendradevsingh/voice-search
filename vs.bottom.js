@@ -21,36 +21,38 @@
     return false;
   }
 
-  const styles = `
-    @keyframes listening{
-      0%{box-shadow: 0px 0px 50px #afabab;}
-      10%{box-shadow: 0px 0px 45px #afabab;}
-      20%{box-shadow: 0px 0px 43px #afabab;}
-      30%{box-shadow: 0px 0px 40px #afabab;}
-      40%{box-shadow: 0px 0px 30px #afabab;}
-      50%{box-shadow: 0px 0px 27px #afabab;}
-      60%{box-shadow: 0px 0px 25px #afabab;}
-      70%{box-shadow: 0px 0px 20px #afabab;}
-      80%{box-shadow: 0px 0px 15px #afabab;}
-      90%{box-shadow: 0px 0px 10px #afabab;}
-      100%{box-shadow: 0px 0px 0px #afabab;}
-    }
-    .vs{position:fixed;right:10px;bottom:10px;border-radius:50%;background:#f68c24;box-sizing:border-box;text-align:center;color:#fff;border:0 solid #fff;animation-duration:1s;animation-iteration-count:infinite;}
-    .vs .icon{
-      display: inline-block;
-      border-radius: 50%;
-      width: 66px;
-      height: 66px;
-      background: -webkit-radial-gradient(#dd7e20, #ffa449);
-      color: #fff;
-      box-shadow: 0px 0px 5px #000;
-    }
-    .vs dialog .icon{animation-duration:1s;animation-iteration-count:infinite;animation-name: listening;box-shadow: 0px 0px 50px #afabab;}
-    .vs .icon path{fill:#fff}
-    .vs dialog{width: 93vw;padding: 50px 0;top: 70px;border: transparent;background-color: #f2f2f2;}
-    .vs .vs-head{font-weight: 700;font-size: 1.25em;}
-    .vs dialog::backdrop{background-color:rgba(0, 0, 0, 0.83)}
-`;
+//   const styles = `
+//     @keyframes listening{
+//       0%{box-shadow: 0px 0px 50px #afabab;}
+//       10%{box-shadow: 0px 0px 45px #afabab;}
+//       20%{box-shadow: 0px 0px 43px #afabab;}
+//       30%{box-shadow: 0px 0px 40px #afabab;}
+//       40%{box-shadow: 0px 0px 30px #afabab;}
+//       50%{box-shadow: 0px 0px 27px #afabab;}
+//       60%{box-shadow: 0px 0px 25px #afabab;}
+//       70%{box-shadow: 0px 0px 20px #afabab;}
+//       80%{box-shadow: 0px 0px 15px #afabab;}
+//       90%{box-shadow: 0px 0px 10px #afabab;}
+//       100%{box-shadow: 0px 0px 0px #afabab;}
+//     }
+//     .vs{position:fixed;right:10px;bottom:10px;border-radius:50%;background:#f68c24;box-sizing:border-box;text-align:center;color:#fff;border:0 solid #fff;animation-duration:1s;animation-iteration-count:infinite;}
+//     .vs .icon{
+//       display: inline-block;
+//       border-radius: 50%;
+//       width: 66px;
+//       height: 66px;
+//       background: -webkit-radial-gradient(#dd7e20, #ffa449);
+//       color: #fff;
+//       box-shadow: 0px 0px 5px #000;
+//     }
+//     .vs dialog .icon{animation-duration:1s;animation-iteration-count:infinite;animation-name: listening;box-shadow: 0px 0px 50px #afabab;}
+//     .vs .icon path{fill:#fff}
+//     .vs dialog{width: 93vw;padding: 50px 0;top: 70px;border: transparent;background-color: #f2f2f2;}
+//     .vs .vs-head{font-weight: 700;font-size: 1.25em;}
+//     .vs dialog::backdrop{background-color:rgba(0, 0, 0, 0.83)}
+// `;
+  
+  const styles = `.vs,.vs dialog .icon{animation-duration:1s;animation-iteration-count:infinite}@keyframes listening{0%{box-shadow:0 0 50px #afabab}10%{box-shadow:0 0 45px #afabab}20%{box-shadow:0 0 43px #afabab}30%{box-shadow:0 0 40px #afabab}40%{box-shadow:0 0 30px #afabab}50%{box-shadow:0 0 27px #afabab}60%{box-shadow:0 0 25px #afabab}70%{box-shadow:0 0 20px #afabab}80%{box-shadow:0 0 15px #afabab}90%{box-shadow:0 0 10px #afabab}100%{box-shadow:0 0 0 #afabab}}.vs{position:fixed;right:10px;bottom:10px;border-radius:50%;background:#f68c24;box-sizing:border-box;text-align:center;color:#fff;border:0 solid #fff}.vs .icon{display:inline-block;border-radius:50%;width:66px;height:66px;background:-webkit-radial-gradient(#dd7e20,#ffa449);color:#fff;box-shadow:0 0 5px #000}.vs dialog .icon{animation-name:listening;box-shadow:0 0 50px #afabab}.vs .icon path{fill:#fff}.vs dialog{width:93vw;padding:50px 0;top:70px;border:transparent;background-color:#f2f2f2}.vs .vs-head{font-weight:700;font-size:1.25em}.vs dialog::backdrop{background-color:rgba(0,0,0,.83)}`;
 
   const onspeechend = function() {
     Recognition.mic.style.animationName = 'none';
