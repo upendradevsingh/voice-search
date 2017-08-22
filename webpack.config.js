@@ -4,7 +4,8 @@ const BabiliPlugin = require("babili-webpack-plugin");
 
 module.exports = {
 	entry: {
-		"vs": "./vs.js"
+		"vs": "./vs.js",
+		"vs.target": "./vs.target.js"
 	},
 	output: {
 		path: path.resolve(__dirname, 'd'),
