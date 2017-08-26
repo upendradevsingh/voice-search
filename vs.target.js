@@ -40,7 +40,7 @@
 //     .vs dialog .icon{animation-duration:1s;animation-iteration-count:infinite;animation-name: listening;box-shadow: 0px 0px 50px #afabab;width: 66px;background-color: #f78f26;border-radius: 50%;color: #fff;height:66px;padding-top:16px;}
 //     .vs .icon path{fill:#b2b2b2}
 //     .vs dialog .icon path{fill:#fff}
-//     .vs dialog{width: 93vw;padding: 40px 0;top: 70px;border: transparent;background-color: #f2f2f2;}
+//     .vs dialog{position:fixed;width: 93vw;padding: 40px 0;top: 70px;border: transparent;background-color: #f2f2f2;}
 //     .vs .vs-head{font-size: 1em;text-transform:capitalize}
 //     .vs dialog::backdrop{background-color:rgba(0, 0, 0, 0.83)}
 //     .show-close-btn .vs{display:none}
@@ -50,20 +50,22 @@
 //     }
 // `;
 
-   const styles = `@keyframes listening{0%{box-shadow:0 0 50px #afabab}10%{box-shadow:0 0 45px #afabab}20%{box-shadow:0 0 43px #afabab}30%{box-shadow:0 0 40px #afabab}40%{box-shadow:0 0 30px #afabab}50%{box-shadow:0 0 27px #afabab}60%{box-shadow:0 0 25px #afabab}70%{box-shadow:0 0 20px #afabab}80%{box-shadow:0 0 15px #afabab}90%{box-shadow:0 0 10px #afabab}100%{box-shadow:0 0 0 #afabab}}.vs{position:absolute;right:50px;top:15px;box-sizing:border-box;text-align:center;color:#fff}.vs .icon{display:inline-block;width:50px;height:50px;color:#fff}.vs dialog .icon{animation-duration:1s;animation-iteration-count:infinite;animation-name:listening;box-shadow:0 0 50px #afabab;width:66px;background-color:#f78f26;border-radius:50%;color:#fff;height:66px;padding-top:16px}.vs .icon path{fill:#b2b2b2}.vs dialog .icon path{fill:#fff}.vs dialog{width:93vw;padding:40px 0;top:70px;border:transparent;background-color:#f2f2f2}.vs .vs-head{font-size:1em;text-transform:capitalize}.vs dialog::backdrop{background-color:rgba(0,0,0,.83)}.show-close-btn .vs{display:none}@media (max-width:767px){.main-header .top-search-input .search-containter{top:10px;width:50px}.main-header.show-close-btn .close-search{right:76px;top:10px;background-position:-49px -199px}}`;
+    const styles = `@keyframes listening{0%{box-shadow:0 0 50px #afabab}10%{box-shadow:0 0 45px #afabab}20%{box-shadow:0 0 43px #afabab}30%{box-shadow:0 0 40px #afabab}40%{box-shadow:0 0 30px #afabab}50%{box-shadow:0 0 27px #afabab}60%{box-shadow:0 0 25px #afabab}70%{box-shadow:0 0 20px #afabab}80%{box-shadow:0 0 15px #afabab}90%{box-shadow:0 0 10px #afabab}100%{box-shadow:0 0 0 #afabab}}.vs{position:absolute;right:50px;top:15px;box-sizing:border-box;text-align:center;color:#fff}.vs .icon{display:inline-block;width:50px;height:50px;color:#fff}.vs dialog .icon{animation-duration:1s;animation-iteration-count:infinite;animation-name:listening;box-shadow:0 0 50px #afabab;width:66px;background-color:#f78f26;border-radius:50%;color:#fff;height:66px;padding-top:16px}.vs .icon path{fill:#b2b2b2}.vs dialog .icon path{fill:#fff}.vs dialog{position:fixed;width:93vw;padding:40px 0;top:70px;border:transparent;background-color:#f2f2f2}.vs .vs-head{font-size:1em;text-transform:capitalize}.vs dialog::backdrop{background-color:rgba(0,0,0,.83)}.show-close-btn .vs{display:none}@media (max-width:767px){.main-header .top-search-input .search-containter{top:10px;width:50px}.main-header.show-close-btn .close-search{right:76px;top:10px;background-position:-49px -199px}}`;
 
-    const onspeechend = function () {
-        Recognition.dialog.querySelector('.icon').style.animationName = 'none';
+    const onspeechend = function() {
+        Recognition.mic.style.animationName = 'none';
         this.stop();
     };
 
-    const onerror = function (event) {
+    const onerror = function(event) { 
+        Recognition.mic.style.animationName = 'none';
+        Recognition.dialogHead.innerHTML = 'Could not recognise the speech. Please try again!';
         console.log('Speech recognition error detected: ' + event.error + " message " + event.message);
         this.stop();
     };
 
-    const onnomatch = function () {
-        console.log('Could not recognise the speech, try again...')
+    const onnomatch = function() {
+        console.log('Could not recognise the speech, try again...');
         this.stop();
     };
 
@@ -115,6 +117,9 @@
 
         dialog.appendChild(icon.cloneNode(true));
 
+        Recognition.dialogHead = Recognition.dialog.querySelector('.vs-head');
+        Recognition.mic = Recognition.dialog.querySelector('.icon');
+
         container.appendChild(dialog);
         container.appendChild(icon);
         target.appendChild(container);
@@ -149,6 +154,11 @@
         } else {
             url = this.baseUrl + "?q=" + encodeURI(keyword);
         }
+
+        if(typeof this.cb === 'function'){
+          this.cb(keyword, url);
+        }
+
         window.location = url;
     };
 
@@ -161,20 +171,22 @@
         this.agent.onspeechend = onspeechend.bind(this.agent);
         this.agent.onerror = onerror.bind(this.agent);
         this.agent.onnomatch = onnomatch.bind(this.agent);
-        this.agent.onstart = function () {
-            Recognition.dialog.showModal();
+        this.agent.onstart = function(){ 
+            Recognition.dialogHead.innerHTML = 'Getting ready to serve you!'
+            !Recognition.dialog.open && Recognition.dialog.showModal();
         };
-        this.agent.onsoundstart = function () {
-            console.log("Sound Started")
+
+        this.agent.onsoundstart = function(){
+          Recognition.dialogHead.innerHTML = 'Listening ...';
         };
-        this.agent.onsoundend = function () {
-            console.log("Sound ended")
+        this.agent.onsoundend = function(){
+          Recognition.mic.style.animationName = 'none';;
         };
-        this.agent.onaudiostart = function () {
-            console.log("Audio Started")
+        this.agent.onaudiostart = function(){
+          Recognition.dialogHead.innerHTML = 'Speak Now ...';
         };
-        this.agent.onaudioend = function () {
-            console.log("Audio ended")
+        this.agent.onaudioend = function(){
+          Recognition.mic.style.animationName = 'none';
         };
 
         decorate.call(this, this.start.bind(this));
