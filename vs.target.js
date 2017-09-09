@@ -140,6 +140,41 @@
 
     const onresult = function (event) {
         var keyword = event.results[0][0].transcript.toLowerCase();
+        var arr = [
+        "\\bsearch\\b", "\\bfor\\b", "\\bshow\\b", "\\bfind\\b", "\\bget\\b", "\\bextract\\b", "\\bgive\\b" , "\\bsame\\b", "\\bsimilar\\b", "\\bwant\\b", "\\bwants\\b", "\\bme\\b", "\\bi\\b", "\\bfetch\\b", "\\bdo\\b", "\\btake\\b", "\\bto\\b", "\\bgo\\b", "\\bsome\\b"
+        ], arrRegex = new RegExp(arr.join('|'), 'g');
+        keyword = keyword.replace(arrRegex, '');
+        if(keyword.match(/cart|account|wishlist|sign in|sign up|track my order|track order|help|order/g)){ 
+            var command = keyword.match(/cart|account|wishlist|sign in|sign up|track my order|track order|help|order/g)[0];
+            Recognition
+            .dialog
+            .querySelector('.vs-head')
+            .innerHTML = `Taking you to '${command}'`;
+            if(command ==='cart') {
+                return window.location.href = '/cart';
+            }
+            if (command === 'account') {
+                return window.location.href = '/account';
+            }
+            if (command === 'wishlist') {
+                return window.location.href = '/quicklist';
+            }
+            if (command === 'sign in') {
+                return window.location.href = '/customer/account/login';
+            }
+            if (command === 'sign up') {
+                return window.location.href = '/customer/account/create';
+            }
+            if (command === 'order') {
+                return window.location.href = '/customer/order';
+            }
+            if (command === 'help') {
+                return window.location.href = '/customer/self-help-desk';
+            }
+            if (command === 'track my order'||command === 'track order') {
+                return window.location.href = '/customer/order/trackorder';
+            }
+        }
         var url;
 
         event.stopImmediatePropagation();
