@@ -158,8 +158,8 @@
         if(typeof this.cb === 'function'){
           this.cb(keyword, url);
         }
-
-        window.location = url;
+        $(root).trigger('jb:voice:search:text', keyword);
+        // window.location = url;
     };
 
     function Recognition(options) {
