@@ -7,14 +7,17 @@
 	saidSize_or_Price;
 
 	var colors = {'black':'checkbox', 'brown':'checkbox', 'purple':'checkbox', 'blue':'checkbox', 'red':'checkbox',
-        'green':'checkbox', 'tan':'checkbox', 'transparent':'checkbox'};
+	'green':'checkbox', 'tan':'checkbox', 'transparent':'checkbox', 'white':'checkbox', 'yellow':'checkbox', 
+	'maroon':'checkbox', 'orange':'checkbox', 'copper':'checkbox', 'silver':'checkbox', 'khaki':'checkbox'};
 
     var categories = {'shoes':'true', 'jewellery':'true', 'accessories':'true', 'home and furniture':'true','sports':'true', 
-     'clothing':'true', 'peep toes':'true', 'toys':'true', 'kids toys':'true', 'kids shoes':'true', 'sandals':'true', 'slippers':'true', 
-     'sneakers':'true', 'flip flops':'true', 'bellies':'true', 'formal shoes':'true','boots':'true', 'floaters':'true', 'beauty':'true',
-     'women beauty':'true', 'fragrances':'true', 'perfumes and edts':'true','deodorants and colognes':'true', 'gift sets':'true',
-     'make up':'true', 'lips':'true', 'lipstick':'true', 'lip gloss':'true', 'lip liner':'true', 'lip pencil':'true', 'lip pallete':'true',
-     'lip brush':'true', 'eye':'true', 'kajal':'true', 'eye liner':'true'};
+	'clothing':'true', 'peep toes':'true', 'toys':'true', 'kids toys':'true', 'kids shoes':'true', 'sandals':'true', 'slippers':'true', 
+	'sneakers':'true', 'flip flops':'true', 'bellies':'true', 'formal shoes':'true','boots':'true', 'floaters':'true', 'beauty':'true',
+	'women beauty':'true', 'fragrances':'true', 'perfumes and edts':'true','deodorants and colognes':'true', 'gift sets':'true',
+	'make up':'true', 'lips':'true', 'lipstick':'true', 'lip gloss':'true', 'lip liner':'true', 'lip pencil':'true', 'lip pallete':'true',
+	'lip brush':'true', 'eye':'true', 'kajal':'true', 'eye liner':'true', 'kurta':'true', 'kurti':'true', 'suits':'true', 
+	 'saree':'true', 'tops':'true', 'tees':'true', 'shirt':'true', 'jeans':'true', 'leggings':'true', 'sunglasses':'true', 'dresses':'true',
+	 'watches':'true', 'polos':'true', 'shorts':'true', 'skirts':'true'};
 
     var gender = {'men':'input', 'women':'input', 'kids':'input', 'girls':'input', 'boys':'input', 'unisex':'input'};
 
@@ -76,7 +79,7 @@
 
 	function openPopUp(word) {
 		saidSize_or_Price = true;
-    	closeDialog();
+    	setTimeout(closeDialog, 1000);
 
     	if (isDesktop()) {
     		return desktopPopUp(word);
@@ -138,8 +141,7 @@
 			    }
 
 			    if (isDesktop()){
-			    	set
-			    	closeDialog();
+			    	setTimeout(closeDialog, 1000);
 			    }else {
 			    	$backBtn.trigger('click');
 			    }
