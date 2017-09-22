@@ -10,6 +10,7 @@
  *      baseUrl: 'https://www.google.co.in/search'
  * });
  */
+var vsCatalog = require('./vs.catalog.initiator');
 
 (function (root) {
     "use strict";
@@ -52,8 +53,8 @@
 //     }
 // `;
 
-    const styles = `@keyframes listening{0%{box-shadow:0 0 50px #afabab}10%{box-shadow:0 0 45px #afabab}20%{box-shadow:0 0 43px #afabab}30%{box-shadow:0 0 40px #afabab}40%{box-shadow:0 0 30px #afabab}50%{box-shadow:0 0 27px #afabab}60%{box-shadow:0 0 25px #afabab}70%{box-shadow:0 0 20px #afabab}80%{box-shadow:0 0 15px #afabab}90%{box-shadow:0 0 10px #afabab}100%{box-shadow:0 0 0 #afabab}}.vs{position:absolute;right:50px;top:15px;box-sizing:border-box;text-align:center;color:#fff}.vs .icon{display:inline-block;width:50px;height:50px;color:#fff}.vs dialog .icon{animation-duration:1s;animation-iteration-count:infinite;animation-name:listening;box-shadow:0 0 50px #afabab;width:66px;background-color:#f78f26;border-radius:50%;color:#fff;height:66px;padding-top:16px}.vs .icon path{fill:#b2b2b2}.vs dialog .icon path{fill:#fff}.vs dialog{position:fixed;width:93vw;padding:40px 0;top:70px;border:transparent;background-color:#f2f2f2}.vs .vs-head{font-size:1em;text-transform:capitalize}.vs dialog::backdrop{background-color:rgba(0,0,0,.83)}.show-close-btn .vs{display:none}@media (max-width:767px){.main-header .top-search-input .search-containter{top:10px;width:50px}.main-header.show-close-btn .close-search{right:76px;top:10px;background-position:-49px -199px}}`;
-
+    const styles = `@keyframes listening{0%{box-shadow:0 0 50px #afabab}10%{box-shadow:0 0 45px #afabab}20%{box-shadow:0 0 43px #afabab}30%{box-shadow:0 0 40px #afabab}40%{box-shadow:0 0 30px #afabab}50%{box-shadow:0 0 27px #afabab}60%{box-shadow:0 0 25px #afabab}70%{box-shadow:0 0 20px #afabab}80%{box-shadow:0 0 15px #afabab}90%{box-shadow:0 0 10px #afabab}100%{box-shadow:0 0 0 #afabab}}.vs{position:absolute;right:0;top:6px;box-sizing:border-box;text-align:center;color:#fff; cursor:pointer;}.vs .icon{display:inline-block;width:50px;height:50px;color:#fff}.vs dialog .icon{animation-duration:1s;animation-iteration-count:infinite;animation-name:listening;box-shadow:0 0 50px #afabab;width:66px;background-color:#f78f26;border-radius:50%;color:#fff;height:66px;padding-top:20px}.vs.jb .icon path{fill:#f79026}.vs .icon path{fill:#b2b2b2}.vs dialog .icon path,.vs.jb dialog .icon path{fill:#fff}.vs dialog{position:fixed;width:93vw;padding:40px 0;top:70px;border:transparent;background-color:#f2f2f2}.vs .vs-head{font-size:1em;text-transform:capitalize}.vs dialog::backdrop{background-color:rgba(0,0,0,.83)}.show-close-btn .vs{display:none}.search-containter{display:none}@media (max-width:767px){.main-header .top-search-input .vs{right:20px;top:15px}.main-header.show-close-btn .top-search-input .search-containter{display:block}}`;
+    
     const onspeechend = function() {
         Recognition.mic.style.animationName = 'none';
         this.stop();
@@ -161,7 +162,7 @@
           this.cb(keyword, url);
         }
         
-        $dataView === 'catalog' ? $(root).trigger('jb:voice:search:text', keyword) : window.location = url;
+        $dataView === 'catalog' ? window.VoiceTextHandler.checkFilter(keyword) : window.location = url;
     };
 
     function Recognition(options) {
