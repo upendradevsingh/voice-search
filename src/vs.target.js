@@ -14,6 +14,8 @@
 (function (root) {
     "use strict";
 
+    var $dataView = $('#main').attr('data-view');
+
     var WebSpeechRecognition = root.SpeechRecognition || root.webkitSpeechRecognition;
 
     if (!WebSpeechRecognition) {
@@ -158,8 +160,8 @@
         if(typeof this.cb === 'function'){
           this.cb(keyword, url);
         }
-        $(root).trigger('jb:voice:search:text', keyword);
-        // window.location = url;
+        
+        $dataView === 'catalog' ? $(root).trigger('jb:voice:search:text', keyword) : window.location = url;
     };
 
     function Recognition(options) {
