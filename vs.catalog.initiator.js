@@ -70,7 +70,7 @@
 			if (isDesktop()) {
 				return this.openPopUp(this.viewType.DESKTOP, word);
 			} else {
-				 return this.openPopUp(this.viewType.MOBILE, word);
+				return this.openPopUp(this.viewType.MOBILE, word);
 			}
 		}
 		return false;
@@ -185,7 +185,7 @@
 
 		if (!oldCategory || oldCategory !== newCategory) {
 			for (var i = 0; i < words.length; i++) {
-				if(this.domManipulator.filtersToBeHandled.includes(words[i])) {
+				if (this.domManipulator.filtersToBeHandled.includes(words[i])) {
 					popupOpened = this.domManipulator.checkWordForPopup(words[i]);
 				}
 				popupOpened = true;
