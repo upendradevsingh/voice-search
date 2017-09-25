@@ -140,8 +140,66 @@
 
     const onresult = function (event) {
         var keyword = event.results[0][0].transcript.toLowerCase();
+        var arr = [
+        "\\bsearch\\b", "\\bfor\\b", "\\bshow\\b", "\\bfind\\b", "\\bget\\b", "\\bextract\\b", "\\bgive\\b" , "\\bsame\\b", "\\bsimilar\\b", "\\bwant\\b", "\\bwants\\b", "\\bme\\b", "\\bi\\b", "\\bfetch\\b", "\\bdo\\b", "\\btake\\b", "\\bto\\b", "\\bgo\\b", "\\bsome\\b"
+        ], arrRegex = new RegExp(arr.join('|'), 'g');
+        keyword = keyword.replace(arrRegex, '');
+        if((window.location.href).indexOf("/customer/self-help-desk") !== -1) {
+            var filter = keyword.match(/return|order|cancel|refund|exchange/g);
+            if(filter) {
+                Recognition
+                .dialog
+                .querySelector('.vs-head')
+                .innerHTML = `Checking for '${filter[0]}'`;
+                if(filter[0] === 'order') {
+                    return window.location.href = '/customer/self-help-desk/view/order';
+                }
+                if(filter[0] === 'return') {
+                    return window.location.href = '/customer/self-help-desk/view/return';
+                }
+                if(filter[0] === 'cancel') {
+                    return window.location.href = '/customer/self-help-desk/view/cancellation';
+                }
+                if(filter[0] === 'refund') {
+                    return window.location.href = '/customer/self-help-desk/view/refunds';
+                }
+                if(filter[0] === 'exchange') {
+                    return window.location.href = '/customer/self-help-desk/view/exchange';
+                }
+            }
+        }
+        var command = keyword.match(/cart|account|wishlist|sign in|log in|login|sign up|track my order|track order|help|order/g);
+        if(command){ 
+            Recognition
+            .dialog
+            .querySelector('.vs-head')
+            .innerHTML = `Taking you to '${command[0]}'`;
+            if(command[0] ==='cart') {
+                return window.location.href = '/cart';
+            }
+            if (command[0] === 'account') {
+                return window.location.href = '/account';
+            }
+            if (command[0] === 'wishlist') {
+                return window.location.href = '/quicklist';
+            }
+            if (command[0] === 'sign in'||command[0] === 'log in'||command[0] === 'login') {
+                return window.location.href = '/customer/account/login';
+            }
+            if (command[0] === 'sign up') {
+                return window.location.href = '/customer/account/create';
+            }
+            if (command[0] === 'order') {
+                return window.location.href = '/customer/order';
+            }
+            if (command[0] === 'help') {
+                return window.location.href = '/customer/self-help-desk';
+            }
+            if (command[0] === 'track my order'||command[0] === 'track order') {
+                return window.location.href = '/customer/order/trackorder';
+            }
+        }
         var url;
-
         event.stopImmediatePropagation();
 
         Recognition
@@ -158,7 +216,7 @@
         if(typeof this.cb === 'function'){
           this.cb(keyword, url);
         }
-
+        $(root).trigger('jb:voice:search:text', keyword);
         window.location = url;
     };
 
