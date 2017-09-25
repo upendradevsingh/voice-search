@@ -1,6 +1,6 @@
+
 (function (window) {
 	var baseUrl = 'https://dev.jabong.com/find/',
-		$backButtonMobile = $('#back-btn'),
 		$searchValue = $('#search');
 
 	function Store(data) {
@@ -16,79 +16,68 @@
 		return returnVal;
 	};
 
-	function desktopSizeAttr() {
-		var dsattr = $('.filterLeftContent > .h6[data-ref=Size_tab]');
-		if (typeof dsattr[0] === 'undefined') {
-			dsattr = $('.filterLeftContent > .h6[data-ref="Shoe Size_tab"]');
+	function DOMManipulator() {
+		this.filtersToBeHandled = ['size', 'price'];
+		this.viewType = {
+			MOBILE: 'mobileData',
+			DESKTOP: 'desktopData'
+		};
+		this.desktopData = {
+			size: ['Size', 'Shoe Size'],
+			price: ['Price'],
+			popupElement: $('#allFilterPopupTop'),
+			element: function (type) {
+				return $(`.filterLeftContent > .h6[data-ref="${type}_tab"]`);
+			}
+		};
+		this.mobileData = {
+			size: ['standard_size', 'sh_size'],
+			price: ['price'],
+			popupElement: $('#mobile-filter'),
+			element: function (type) {
+				return $(`#filter-container > li.${type}>.h6`);
+			}
+		};
+		this.filterTrigger = 'jb:catalog:onMobileFilterApplied';
+	}
+
+	DOMManipulator.prototype.getElement = function (viewType, word) {
+		var viewTypeData = this[viewType];
+		var domElement;
+
+		for (let value of viewTypeData[word]) {
+			domElement = viewTypeData.element(value);
+			if (domElement[0]) {
+				return domElement;
+			}
 		}
-		return dsattr;
+		return domElement;
 	}
 
-	function desktopPriceAttr() {
-		return $('.filterLeftContent > .h6[data-ref=Price_tab]');
-	}
-
-	function desktopFilter(attr) {
-		$('#allFilterPopupTop').click();
-		attr.click();
-	}
-
-	function mobileSizeAttr() {
-		var msAttr = $('#filter-container > li.standard_size.full-expand>.h6');
-		if (typeof msAttr[0] === 'undefined') {
-			msAttr = $('#filter-container > li.sh_size.full-expand>.h6');
-		}
-		return msAttr;
-	}
-
-	function mobilePriceAttr() {
-		return $('#filter-container > li.price>.h6');
-	}
-
-	function mobileFilter(mobAttr) {
-		$('#mobile-filter').click();
-		mobAttr.click();
-	}
-
-	function desktopPopUp(word) {
-		var attr;
-		if (word === 'size') {
-			attr = desktopSizeAttr();
-		} else if (word === 'price') {
-			attr = desktopPriceAttr();
-		}
-
-		if (typeof attr[0] !== 'undefined') {
-			desktopFilter(attr);
+	DOMManipulator.prototype.openPopUp = function (viewType, word) {
+		var domElement = this.getElement(viewType, word);
+		if (domElement[0]) {
+			$(this[viewType].popupElement).click();
+			domElement.click();
 			return true;
 		}
 		return false;
-	}
+	};
 
-	function mobilePopUp(word) {
-		var mobAttr;
-		if (word === 'size') {
-			mobAttr = mobileSizeAttr();
-		} else if (word === 'price') {
-			mobAttr = mobilePriceAttr();
-		}
-
-		if (typeof mobAttr[0] !== 'undefined') {
-			mobileFilter(mobAttr);
-			return true;
+	DOMManipulator.prototype.checkWordForPopup = function (word) {
+		if (this.filtersToBeHandled.includes(word)) {
+			setTimeout(closeDialog, 1000);
+			if (isDesktop()) {
+				return this.openPopUp(this.viewType.DESKTOP, word);
+			} else {
+				 return this.openPopUp(this.viewType.MOBILE, word);
+			}
 		}
 		return false;
 	}
 
-	function openPopUp(word) {
-		setTimeout(closeDialog, 500);
-
-		if (isDesktop()) {
-			return desktopPopUp(word);
-		} else {
-			return mobilePopUp(word);
-		}
-		return false;
+	function capitalizeFirstLetter(string) {
+		return string.charAt(0).toUpperCase() + string.slice(1);
 	}
 
 	function redirect(keyword) {
@@ -107,7 +96,7 @@
 		} else if (oldCategoryWord) {
 			return oldCategoryWord;
 		}
-		//this is passed when a category not present in array is encountered
+		// This is passed when a category not present in array is encountered
 		return '';
 	}
 
@@ -117,9 +106,9 @@
 		}
 	}
 
-	function storeInSession(newCategoryWord) {
+	function storeInSession(newCategoryWord, oldCategory) {
 		if (window.sessionStorage) {
-			sessionStorage.setItem('cat', addInSession(newCategoryWord, this.oldCategoryWord));
+			sessionStorage.setItem('cat', addInSession(newCategoryWord, oldCategory));
 		}
 	}
 
@@ -133,8 +122,10 @@
 		};
 	})();
 
+
 	function VoiceTextHandler(data) {
 		this.store = new Store(data);
+		this.domManipulator = new DOMManipulator();
 		this.selectedFilters;
 	}
 
@@ -142,16 +133,16 @@
 		if ($searchValue.val() !== '') {
 			var query = $searchValue.val();
 			words = query.split(" ");
-			return this.getNewCategory('categories', words)
+			return this.getCategoryWord('categories', words)
 		}
 		return '';
 	}
 
-	VoiceTextHandler.prototype.getNewCategory = function (baseKey, nestedKey) {
+	VoiceTextHandler.prototype.getCategoryWord = function (baseKey, nestedKey) {
 		for (var i = 0; i < nestedKey.length; i++) {
 			for (var j = 0; j < nestedKey.length; j++) {
 
-				// check for n-grams if available in the categories
+				// A check for n-grams if available in the categories
 				var joinedStr = nestedKey.slice(i, j + 1).join(" ");
 				if (this.store.get(baseKey, joinedStr)) {
 					return joinedStr;
@@ -161,62 +152,54 @@
 		return '';
 	};
 
+	VoiceTextHandler.prototype.applyFilter = function (redirectFlag, keyword) {
+		setTimeout(closeDialog, 1000);
+		if (redirectFlag && this.selectedFilters.length <= 0) {
+			redirect(keyword);
+		}
+		if (redirectFlag) {
+			$(window).trigger(this.domManipulator.filterTrigger, [this.selectedFilters]);
+		}
+	}
+
 	VoiceTextHandler.prototype.filters = function (nestedKey) {
 		for (var i = 0; i < this.store.filterNames.length; i++) {
 			var identifier = this.store.get(this.store.filterNames[i], nestedKey);
 			if (identifier) {
 				this.selectedFilters.push({
 					parent: this.store.filterNames[i],
-					value: nestedKey.charAt(0).toUpperCase() + nestedKey.slice(1),
+					value: capitalizeFirstLetter(nestedKey),
 					type: identifier
 				});
 			}
 		}
 	};
 
-	VoiceTextHandler.prototype.applyFilter = function (selectedFilters) {
-		$(window).trigger('jb:catalog:onMobileFilterApplied', [selectedFilters]);
-	}
-
-	VoiceTextHandler.prototype.desktopAndMobileFilter = function (keyword) {
-		if (isDesktop()) {
-			setTimeout(closeDialog, 500);
-		} else {
-			$backButtonMobile.trigger('click');
-		}
-		if (this.selectedFilters.length <= 0) {
-			redirect(keyword);
-		}
-		this.applyFilter(this.selectedFilters);
-	};
-
 	VoiceTextHandler.prototype.checkFilter = function (keyword) {
-		var redirectFlag = true;
+		var popupOpened = false;
 		var words = keyword.split(" ");
-
 		this.selectedFilters = [];
 
 		var oldCategory = getFromSession() || this.getFromSearchBox();
-		var newCategory = this.getNewCategory('categories', words);
+		var newCategory = this.getCategoryWord('categories', words);
 
 		if (!oldCategory || oldCategory !== newCategory) {
 			for (var i = 0; i < words.length; i++) {
-				if (words[i] === 'size' || words[i] === 'price') {
-					redirectFlag = !(openPopUp(words[i]));
-					if (redirectFlag) {
-						break;
-					}
+				if(this.domManipulator.filtersToBeHandled.includes(words[i])) {
+					popupOpened = this.domManipulator.checkWordForPopup(words[i]);
+				}
+				popupOpened = true;
+				if (popupOpened) {
+					break;
 				} else {
-					this.filters(words[i]);
+					this.filters(words[i])
 				}
 			}
-			if (redirectFlag) {
-				this.desktopAndMobileFilter(keyword);
-			}
+			this.applyFilter(!popupOpened, keyword);
 		} else {
 			redirect(keyword);
 		}
-		storeInSession(newCategory);
+		storeInSession(newCategory, oldCategory);
 	};
 	window.VoiceTextHandler = new VoiceTextHandler({
 		options: {
@@ -240,6 +223,6 @@
 			}
 		},
 		filterNames: ['colors', 'gender']
-	});;
+	});
 
 })(window);
