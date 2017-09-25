@@ -6,7 +6,7 @@ module.exports = {
 	entry: {
 		"vs": "./vs.js",
 		"vs.tg": "./vs.target.js",
-		"vs.only": "./vs.only.js",
+		"vs.only": "./vs.target.js",
 		"vs.b": "./vs.bottom.js",
 		"vs.c": "./vs.catalog.initiator.js"
 	},
