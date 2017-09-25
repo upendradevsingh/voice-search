@@ -1,6 +1,6 @@
 
 (function (window) {
-	var baseUrl = `https://${window.location.host}`,
+	var baseUrl = `https://${window.location.host}/find`,
 		$searchValue = $('#search');
 
 	function Store(data) {
@@ -179,7 +179,7 @@
 		var popupOpened = false;
 		var words = keyword.split(" ");
 		this.selectedFilters = [];
-
+		
 		var oldCategory = getFromSession() || this.getFromSearchBox();
 		var newCategory = this.getCategoryWord('categories', words);
 
@@ -188,7 +188,6 @@
 				if (this.domManipulator.filtersToBeHandled.includes(words[i])) {
 					popupOpened = this.domManipulator.checkWordForPopup(words[i]);
 				}
-				popupOpened = true;
 				if (popupOpened) {
 					break;
 				} else {
@@ -211,7 +210,7 @@
 				'make up': 'true', 'lips': 'true', 'lipstick': 'true', 'lip gloss': 'true', 'lip liner': 'true', 'lip pencil': 'true', 'lip pallete': 'true',
 				'lip brush': 'true', 'eye': 'true', 'kajal': 'true', 'eye liner': 'true', 'kurta': 'true', 'kurti': 'true', 'suits': 'true',
 				'saree': 'true', 'tops': 'true', 'tees': 'true', 'shirt': 'true', 'jeans': 'true', 'leggings': 'true', 'sunglasses': 'true', 'dresses': 'true',
-				'watches': 'true', 'polos': 'true', 'shorts': 'true', 'skirts': 'true'
+				'watches': 'true', 'polos': 'true', 'shorts': 'true', 'skirts': 'true', 'trousers': 'true'
 			},
 			'colors': {
 				'black': 'checkbox', 'brown': 'checkbox', 'purple': 'checkbox', 'blue': 'checkbox', 'red': 'checkbox',
