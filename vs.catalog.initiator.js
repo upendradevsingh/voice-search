@@ -1,6 +1,6 @@
 
 (function (window) {
-	var baseUrl = 'https://dev.jabong.com/find/',
+	var baseUrl = `https://${window.location.host}`,
 		$searchValue = $('#search');
 
 	function Store(data) {
