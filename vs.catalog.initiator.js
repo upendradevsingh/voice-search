@@ -208,9 +208,10 @@
 				'sneakers': 'true', 'flip flops': 'true', 'bellies': 'true', 'formal shoes': 'true', 'boots': 'true', 'floaters': 'true', 'beauty': 'true',
 				'women beauty': 'true', 'fragrances': 'true', 'perfumes and edts': 'true', 'deodorants and colognes': 'true', 'gift sets': 'true',
 				'make up': 'true', 'lips': 'true', 'lipstick': 'true', 'lip gloss': 'true', 'lip liner': 'true', 'lip pencil': 'true', 'lip pallete': 'true',
-				'lip brush': 'true', 'eye': 'true', 'kajal': 'true', 'eye liner': 'true', 'kurta': 'true', 'kurti': 'true', 'suits': 'true',
-				'saree': 'true', 'tops': 'true', 'tees': 'true', 'shirt': 'true', 'jeans': 'true', 'leggings': 'true', 'sunglasses': 'true', 'dresses': 'true',
-				'watches': 'true', 'polos': 'true', 'shorts': 'true', 'skirts': 'true', 'trousers': 'true'
+				'lip brush': 'true', 'eye': 'true', 'kajal': 'true', 'eye liner': 'true', 'kurta': 'true', 'kurti': 'true', 'suits': 'true', 'saree': 'true',
+				'tops': 'true', 'tees': 'true', 'shirt': 'true', 'jeans': 'true', 'leggings': 'true', 'sunglasses': 'true', 'dresses': 'true', 'watches': 'true',
+				'polos': 'true', 'shorts': 'true', 'skirts': 'true', 'trousers': 'true', 'top': 'true', 'pants': 'true', 'pant': 'true','sheets': 'true',
+				'bedsheets': 'true', 'shirts':'true','trouser': 'true','jacket': 'true','sweater':'true'
 			},
 			'colors': {
 				'black': 'checkbox', 'brown': 'checkbox', 'purple': 'checkbox', 'blue': 'checkbox', 'red': 'checkbox',
