@@ -15,7 +15,7 @@ var vsCatalog = require('./vs.catalog.initiator');
 (function (root) {
     "use strict";
 
-    var $dataView = $('#main').attr('data-view');
+    var $dataView = document.getElementById('main').getAttribute('data-view');;
 
     var WebSpeechRecognition = root.SpeechRecognition || root.webkitSpeechRecognition;
 
@@ -240,7 +240,7 @@ var vsCatalog = require('./vs.catalog.initiator');
             Recognition.dialogHead.innerHTML = 'Listening ...';
         };
         this.agent.onsoundend = function () {
-            Recognition.mic.style.animationName = 'none';;
+            Recognition.mic.style.animationName = 'none';
         };
         this.agent.onaudiostart = function () {
             Recognition.dialogHead.innerHTML = 'Speak Now ...';

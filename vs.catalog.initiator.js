@@ -1,7 +1,7 @@
 
 (function (window) {
 	var baseUrl = `https://${window.location.host}/find`,
-		$searchValue = $('#search');
+		searchValue = document.getElementById('search').value;
 
 	function Store(data) {
 		this.data = data['options'];
@@ -25,17 +25,19 @@
 		this.desktopData = {
 			size: ['Size', 'Shoe Size'],
 			price: ['Price'],
-			popupElement: $('#allFilterPopupTop'),
+			popupElement: document.querySelector('#allFilterPopupTop'),
 			element: function (type) {
-				return $(`.filterLeftContent > .h6[data-ref="${type}_tab"]`);
+				var query = `.filterLeftContent > .h6[data-ref="${type}_tab"]`;
+				return document.querySelector(query);
 			}
 		};
 		this.mobileData = {
 			size: ['standard_size', 'sh_size'],
 			price: ['price'],
-			popupElement: $('#mobile-filter'),
+			popupElement: document.querySelector('#mobile-filter'),
 			element: function (type) {
-				return $(`#filter-container > li.${type}>.h6`);
+				var query = `#filter-container > li.${type}>.h6`;
+				return document.querySelector(query);
 			}
 		};
 		this.filterTrigger = 'jb:catalog:onMobileFilterApplied';
@@ -47,7 +49,7 @@
 
 		for (let value of viewTypeData[word]) {
 			domElement = viewTypeData.element(value);
-			if (domElement[0]) {
+			if (domElement) {
 				return domElement;
 			}
 		}
@@ -56,8 +58,8 @@
 
 	DOMManipulator.prototype.openPopUp = function (viewType, word) {
 		var domElement = this.getElement(viewType, word);
-		if (domElement[0]) {
-			$(this[viewType].popupElement).click();
+		if (domElement) {
+			this[viewType].popupElement.click();
 			domElement.click();
 			return true;
 		}
@@ -114,7 +116,7 @@
 
 	var isDesktop = (function () {
 		var isDesktop = true;
-		if (($('html').hasClass('touch-enabled') && $(window).width() <= 1024) || $(window).width() < 1024) {
+		if ((document.querySelector('.touch-enabled') && window.innerWidth <= 1024) || window.innerWidth < 1024) {
 			isDesktop = false;
 		}
 		return function () {
@@ -130,8 +132,8 @@
 	}
 
 	VoiceTextHandler.prototype.getFromSearchBox = function () {
-		if ($searchValue.val() !== '') {
-			var query = $searchValue.val();
+		if (searchValue !== '') {
+			var query = searchValue;
 			words = query.split(" ");
 			return this.getCategoryWord('categories', words)
 		}
@@ -158,7 +160,7 @@
 			redirect(keyword);
 		}
 		if (redirectFlag) {
-			$(window).trigger(this.domManipulator.filterTrigger, [this.selectedFilters]);
+			window.trigger(this.domManipulator.filterTrigger, [this.selectedFilters]);
 		}
 	}
 
@@ -183,7 +185,7 @@
 		var oldCategory = getFromSession() || this.getFromSearchBox();
 		var newCategory = this.getCategoryWord('categories', words);
 
-		if (!oldCategory || oldCategory !== newCategory) {
+		if (!oldCategory || oldCategory === newCategory || !newCategory) {
 			for (var i = 0; i < words.length; i++) {
 				if (this.domManipulator.filtersToBeHandled.includes(words[i])) {
 					popupOpened = this.domManipulator.checkWordForPopup(words[i]);
@@ -211,7 +213,7 @@
 				'lip brush': 'true', 'eye': 'true', 'kajal': 'true', 'eye liner': 'true', 'kurta': 'true', 'kurti': 'true', 'suits': 'true', 'saree': 'true',
 				'tops': 'true', 'tees': 'true', 'shirt': 'true', 'jeans': 'true', 'leggings': 'true', 'sunglasses': 'true', 'dresses': 'true', 'watches': 'true',
 				'polos': 'true', 'shorts': 'true', 'skirts': 'true', 'trousers': 'true', 'top': 'true', 'pants': 'true', 'pant': 'true','sheets': 'true',
-				'bedsheets': 'true', 'shirts':'true','trouser': 'true','jacket': 'true','sweater':'true'
+				'bed sheets': 'true','bed sheet': 'true', 'shirts':'true','trouser': 'true','jacket': 'true','sweater':'true','shrug':'true'
 			},
 			'colors': {
 				'black': 'checkbox', 'brown': 'checkbox', 'purple': 'checkbox', 'blue': 'checkbox', 'red': 'checkbox',
