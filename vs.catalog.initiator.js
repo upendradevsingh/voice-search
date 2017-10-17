@@ -1,4 +1,3 @@
-
 (function (window) {
 	var baseUrl = `https://${window.location.host}/find`,
 		searchValue = document.getElementById('search').value;
@@ -63,19 +62,19 @@
 			domElement.click();
 			return true;
 		}
-		return false;
+		return true;
 	};
 
 	DOMManipulator.prototype.checkWordForPopup = function (word) {
 		if (this.filtersToBeHandled.includes(word)) {
-			setTimeout(closeDialog, 1000);
+			setTimeout(closeDialog, 500);
 			if (isDesktop()) {
 				return this.openPopUp(this.viewType.DESKTOP, word);
 			} else {
 				return this.openPopUp(this.viewType.MOBILE, word);
 			}
 		}
-		return false;
+		return true;
 	}
 
 	function capitalizeFirstLetter(string) {
@@ -155,12 +154,13 @@
 	};
 
 	VoiceTextHandler.prototype.applyFilter = function (redirectFlag, keyword) {
-		setTimeout(closeDialog, 1000);
+		setTimeout(closeDialog, 500);
 		if (redirectFlag && this.selectedFilters.length <= 0) {
 			redirect(keyword);
-		}
-		if (redirectFlag) {
-			window.trigger(this.domManipulator.filterTrigger, [this.selectedFilters]);
+		} else if (redirectFlag) {
+			// dispatch event takes an object which is prepend in the event 
+			// Release for eventdispatch to be sent 
+			$(window).trigger(this.domManipulator.filterTrigger, [this.selectedFilters]);
 		}
 	}
 
@@ -213,7 +213,7 @@
 				'lip brush': 'true', 'eye': 'true', 'kajal': 'true', 'eye liner': 'true', 'kurta': 'true', 'kurti': 'true', 'suits': 'true', 'saree': 'true',
 				'tops': 'true', 'tees': 'true', 'shirt': 'true', 'jeans': 'true', 'leggings': 'true', 'sunglasses': 'true', 'dresses': 'true', 'watches': 'true',
 				'polos': 'true', 'shorts': 'true', 'skirts': 'true', 'trousers': 'true', 'top': 'true', 'pants': 'true', 'pant': 'true','sheets': 'true',
-				'bed sheets': 'true','bed sheet': 'true', 'shirts':'true','trouser': 'true','jacket': 'true','sweater':'true','shrug':'true'
+				'bed sheets': 'true','bed sheet': 'true', 'shirts':'true','trouser': 'true','jacket': 'true','sweater':'true','shrug':'true', 'bag':'true', 'bags':'true'
 			},
 			'colors': {
 				'black': 'checkbox', 'brown': 'checkbox', 'purple': 'checkbox', 'blue': 'checkbox', 'red': 'checkbox',
