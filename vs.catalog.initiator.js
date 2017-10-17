@@ -159,8 +159,12 @@
 			redirect(keyword);
 		} else if (redirectFlag) {
 			// dispatch event takes an object which is prepend in the event 
-			// Release for eventdispatch to be sent 
-			$(window).trigger(this.domManipulator.filterTrigger, [this.selectedFilters]);
+			// Release for eventdispatch to be sent
+			try{
+				$(window).trigger(this.domManipulator.filterTrigger, [this.selectedFilters]);
+			} catch(err) {
+				redirect(keyword);
+			} 
 		}
 	}
 
